@@ -9,7 +9,7 @@ class AnimeService {
     }
     private var components = URLComponents()
     
-    func searchAnime(for query: String) async throws -> [AnimeData]{
+    func searchAnime(for query: String) async throws -> [AnimeData] {
         components.queryItems = [
             URLQueryItem(name: "q", value: query)
         ]
