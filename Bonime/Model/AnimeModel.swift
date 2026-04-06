@@ -12,7 +12,7 @@ struct AnimeData: Codable, Identifiable {
     let episodes: Int
     let popularity: Int
     let genres: [Genre]
-    let images: Image
+    let images: AnimeImage
     
     enum CodingKeys: String, CodingKey {
         case id = "mal_id"
@@ -36,7 +36,7 @@ struct Genre: Codable {
     }
 }
 
-struct Image: Codable {
+struct AnimeImage: Codable {
     let jpg: Jpg
 }
 

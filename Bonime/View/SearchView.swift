@@ -7,7 +7,7 @@ struct SearchView: View {
         NavigationStack {
             List {
                 ForEach(animeViewModel.searchResults) { data in
-                    Text(data.title)
+                    AnimeCardView(data: data)
                 }
             }
             .searchable(text: $animeViewModel.search, prompt: "search an anime...")
