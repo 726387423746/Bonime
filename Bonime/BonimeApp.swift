@@ -1,10 +1,3 @@
-//
-//  BonimeApp.swift
-//  Bonime
-//
-//  Created by BORA on 5.04.2026.
-//
-
 import SwiftUI
 import CoreData
 
@@ -14,7 +7,7 @@ struct BonimeApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

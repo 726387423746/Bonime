@@ -1,10 +1,3 @@
-//
-//  Persistence.swift
-//  Bonime
-//
-//  Created by BORA on 5.04.2026.
-//
-
 import CoreData
 
 struct PersistenceController {
