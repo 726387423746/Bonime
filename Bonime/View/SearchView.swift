@@ -2,10 +2,20 @@ import SwiftUI
 
 struct SearchView: View {
     
-    @State var animeModel = AnimeViewModel()
+    @State private var animeViewModel = AnimeViewModel()
     var body: some View {
         NavigationStack {
-            Text("Hello, this is SearchView!")
+            List {
+                ForEach(animeViewModel.searchResults) { data in
+                    Text(data.title)
+                }
+            }
+            .searchable(text: $animeViewModel.search, prompt: "search an anime...")
+            .onSubmit(of: .search) {
+                Task {
+                    try await animeViewModel.getAnime()
+                }
+            }
         }
     }
 }

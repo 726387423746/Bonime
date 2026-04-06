@@ -4,8 +4,8 @@ struct JSONResponse: Codable {
     let data: [AnimeData]
 }
 
-struct AnimeData: Codable {
-    let malId: Int
+struct AnimeData: Codable, Identifiable {
+    let id: Int
     let title: String
     let rank: Int
     let score: Double
@@ -15,7 +15,7 @@ struct AnimeData: Codable {
     let images: Image
     
     enum CodingKeys: String, CodingKey {
-        case malId = "mal_id"
+        case id = "mal_id"
         case title
         case rank
         case score
