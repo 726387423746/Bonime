@@ -7,10 +7,10 @@ struct JSONResponse: Codable {
 struct AnimeData: Codable, Identifiable {
     let id: Int
     let title: String
-    let rank: Int
-    let score: Double
-    let episodes: Int
-    let popularity: Int
+    let rank: Int?
+    let score: Double?
+    let episodes: Int?
+    let popularity: Int?
     let genres: [Genre]
     let images: AnimeImage
     
