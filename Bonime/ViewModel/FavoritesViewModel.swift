@@ -4,7 +4,8 @@ import Observation
 
 @Observable
 class FavoritesViewModel {
-    let favoriteAnimes: [FavoriteAnimeData] = []
+    
+    var favoriteAnimes: [FavoriteAnimeData] = []
     
     
 }
