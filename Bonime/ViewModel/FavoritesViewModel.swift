@@ -8,6 +8,16 @@ class FavoritesViewModel {
     let viewContext = PersistenceController.shared.container.viewContext
     var favoriteAnimes: [FavoriteAnimeData] = []
     
+    func fetchFavorites() {
+        let request = FavoriteAnimeData.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \FavoriteAnimeData.title, ascending: true)]
+        do {
+            favoriteAnimes = try viewContext.fetch(request)
+        } catch {
+            print("Fetch failed: \(error)")
+        }
+    }
+    
     func checkIfExists(identifier: Int) -> Bool {
         let request = FavoriteAnimeData.fetchRequest()
         request.fetchLimit = 1
@@ -21,10 +31,31 @@ class FavoritesViewModel {
             return false
         }
         let newFavoriteAnime = FavoriteAnimeData(context: viewContext)
+        newFavoriteAnime.id = Int64(animeData.id)
         newFavoriteAnime.title = animeData.title
         newFavoriteAnime.imageURL = animeData.images.jpg.imageURL
-        // it goes like this
-        try? viewContext.save()
+        if let score = animeData.score { newFavoriteAnime.score = score }
+        if let episodes = animeData.episodes { newFavoriteAnime.episodes = Int16(episodes) }
+        
+        do {
+            try viewContext.save()
+            fetchFavorites()
+        } catch {
+            let nsError = error as NSError
+            print("Unresolved error \(nsError), \(nsError.userInfo)")
+            return false
+        }
         return true
+    }
+    
+    func deleteAnime(anime: FavoriteAnimeData) {
+        viewContext.delete(anime)
+        do {
+            try viewContext.save()
+            fetchFavorites()
+        } catch {
+            let nsError = error as NSError
+            print("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
     }
 }
