@@ -7,8 +7,7 @@ struct FavoritesView: View {
         NavigationStack {
             List {
                 ForEach(favoritesViewModel.favoriteAnimes) { favoriteAnime in
-                    
-                    
+                    FavoriteAnimeCardView(data: favoriteAnime)
                 }
             }
             .onAppear {
@@ -17,3 +16,4 @@ struct FavoritesView: View {
         }
     }
 }
+
