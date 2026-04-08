@@ -14,6 +14,7 @@ struct FavoritesView: View {
                             } label: {
                                 Label("Delete", systemImage: "trash")
                             }
+                            .tint(.red)
                         }
                 }
             }
@@ -23,4 +24,3 @@ struct FavoritesView: View {
         }
     }
 }
-

@@ -15,6 +15,7 @@ struct SearchView: View {
                             } label: {
                                 Label("Favorite", systemImage: "star.fill")
                             }
+                            .tint(.green)
                         }
                 }
             }
