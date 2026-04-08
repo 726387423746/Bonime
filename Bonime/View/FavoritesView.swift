@@ -8,6 +8,13 @@ struct FavoritesView: View {
             List {
                 ForEach(favoritesViewModel.favoriteAnimes) { favoriteAnime in
                     FavoriteAnimeCardView(data: favoriteAnime)
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            Button {
+                                let _ = favoritesViewModel.deleteAnime(anime: favoriteAnime)
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
                 }
             }
             .onAppear {

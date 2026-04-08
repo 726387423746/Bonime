@@ -10,8 +10,10 @@ struct SearchView: View {
                 ForEach(animeViewModel.searchResults) { data in
                     AnimeCardView(data: data)
                         .swipeActions(edge: .leading) {
-                            Button("Add to favorites") {
+                            Button {
                                 let _ = favoritesViewModel.saveAnime(animeData: data)
+                            } label: {
+                                Label("Favorite", systemImage: "star.fill")
                             }
                         }
                 }
@@ -26,6 +28,3 @@ struct SearchView: View {
     }
 }
 
-#Preview {
-    SearchView()
-}
