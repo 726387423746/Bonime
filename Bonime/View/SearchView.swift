@@ -10,14 +10,14 @@ struct SearchView: View {
                 ForEach(animeViewModel.searchResults) { data in
                     NavigationLink(value: data) {
                         AnimeCardView(data: data)
-                            .swipeActions(edge: .leading) {
-                                Button {
-                                    let _ = favoritesViewModel.saveAnime(animeData: data)
-                                } label: {
-                                    Label("Favorite", systemImage: "star.fill")
-                                }
-                                .tint(.green)
-                            }
+                    }
+                    .swipeActions(edge: .leading) {
+                        Button {
+                            let _ = favoritesViewModel.saveAnime(animeData: data)
+                        } label: {
+                            Label("Favorite", systemImage: "star.fill")
+                        }
+                        .tint(.green)
                     }
                 }
             }
@@ -27,9 +27,8 @@ struct SearchView: View {
                     try await animeViewModel.getAnime()
                 }
             }
-            navigationDestination(for: AnimeData.self) { anime in
+            .navigationDestination(for: AnimeData.self) { anime in
                 DetailView(anime: anime)
-                
             }
         }
     }
