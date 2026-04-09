@@ -4,7 +4,7 @@ struct JSONResponse: Codable {
     let data: [AnimeData]
 }
 
-struct AnimeData: Codable, Identifiable {
+struct AnimeData: Codable, Identifiable, Hashable {
     let id: Int
     let title: String
     let rank: Int?
@@ -26,7 +26,7 @@ struct AnimeData: Codable, Identifiable {
     }
 }
 
-struct Genre: Codable {
+struct Genre: Codable, Hashable  {
     let malId: Int
     let name: String
     
@@ -36,11 +36,11 @@ struct Genre: Codable {
     }
 }
 
-struct AnimeImage: Codable {
+struct AnimeImage: Codable, Hashable  {
     let jpg: Jpg
 }
 
-struct Jpg: Codable {
+struct Jpg: Codable, Hashable {
     let imageURL: String
     
     enum CodingKeys: String, CodingKey {
