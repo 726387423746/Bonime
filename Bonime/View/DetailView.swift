@@ -22,6 +22,51 @@ struct DetailView: View {
                         EmptyView()
                     }
                 }
+                Text(anime.title)
+                    .bold()
+                    .font(.title)
+                
+                HStack {
+                    HStack {
+                        Image(systemName: "star.fill")
+                            .foregroundStyle(.yellow)
+                        VStack {
+                            Text("Score")
+                            Text(anime.score?.formatted() ?? "N/A")
+                                .bold()
+                        }
+                    }
+                    HStack {
+                        Image(systemName: "trophy.fill")
+                            .foregroundStyle(.orange)
+                        VStack {
+                            Text("Rank")
+                            Text(anime.rank?.formatted() ?? "N/A")
+                                .bold()
+                        }
+                    }
+                }
+                HStack {
+                    HStack {
+                        Image(systemName: "heart.fill")
+                            .foregroundStyle(.red)
+                        VStack {
+                            Text("Popularity")
+                            Text(anime.popularity?.formatted() ?? "N/A")
+                                .bold()
+                        }
+                    }
+                    HStack {
+                        Image(systemName: "play.tv.fill")
+                            .foregroundStyle(.gray)
+                        VStack {
+                            Text("Rank")
+                            Text("#\(anime.rank?.formatted() ?? "N/A")")
+                                .bold()
+                        }
+                    }
+                }
+                
             }
             .padding(16)
         }
@@ -42,8 +87,7 @@ extension AnimeData {
     )
 }
 
+
 #Preview {
-    NavigationStack {
-        DetailView(anime: .sample)
-    }
+    DetailView(anime: AnimeData.sample)
 }
