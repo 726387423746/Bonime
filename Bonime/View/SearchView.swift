@@ -8,15 +8,17 @@ struct SearchView: View {
         NavigationStack {
             List {
                 ForEach(animeViewModel.searchResults) { data in
-                    AnimeCardView(data: data)
-                        .swipeActions(edge: .leading) {
-                            Button {
-                                let _ = favoritesViewModel.saveAnime(animeData: data)
-                            } label: {
-                                Label("Favorite", systemImage: "star.fill")
+                    NavigationLink(value: data) {
+                        AnimeCardView(data: data)
+                            .swipeActions(edge: .leading) {
+                                Button {
+                                    let _ = favoritesViewModel.saveAnime(animeData: data)
+                                } label: {
+                                    Label("Favorite", systemImage: "star.fill")
+                                }
+                                .tint(.green)
                             }
-                            .tint(.green)
-                        }
+                    }
                 }
             }
             .searchable(text: $animeViewModel.search, prompt: "search an anime...")
@@ -24,6 +26,10 @@ struct SearchView: View {
                 Task {
                     try await animeViewModel.getAnime()
                 }
+            }
+            navigationDestination(for: AnimeData.self) { anime in
+                DetailView(anime: anime)
+                
             }
         }
     }
