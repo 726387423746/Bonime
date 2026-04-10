@@ -4,75 +4,118 @@ struct DetailView: View {
     
     let anime: AnimeData
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                AsyncImage(url: URL(string: anime.images.jpg.imageURL)) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 200, height: 200)
-                            .clipShape(RoundedRectangle(cornerRadius: 20))
-                    case .failure:
-                        Image(systemName: "photo")
-                    default:
-                        EmptyView()
-                    }
+        VStack(spacing: 12) {
+            Text(anime.title)
+                .font(.title)
+                .bold()
+            AsyncImage(url: URL(string: anime.images.jpg.imageURL)) { phase in
+                switch phase {
+                case .empty:
+                    ProgressView()
+                case .success(let image):
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 150, height: 150)
+                case .failure:
+                    Image(systemName: "photo")
+                default:
+                    EmptyView()
                 }
-                Text(anime.title)
-                    .bold()
-                    .font(.title)
-                
-                HStack {
-                    HStack {
-                        Image(systemName: "star.fill")
-                            .foregroundStyle(.yellow)
-                        VStack {
-                            Text("Score")
-                            Text(anime.score?.formatted() ?? "N/A")
-                                .bold()
-                        }
-                    }
-                    HStack {
-                        Image(systemName: "trophy.fill")
-                            .foregroundStyle(.orange)
-                        VStack {
-                            Text("Rank")
-                            Text(anime.rank?.formatted() ?? "N/A")
-                                .bold()
-                        }
-                    }
-                }
-                HStack {
-                    HStack {
-                        Image(systemName: "heart.fill")
-                            .foregroundStyle(.red)
-                        VStack {
-                            Text("Popularity")
-                            Text(anime.popularity?.formatted() ?? "N/A")
-                                .bold()
-                        }
-                    }
-                    HStack {
-                        Image(systemName: "play.tv.fill")
-                            .foregroundStyle(.gray)
-                        VStack {
-                            Text("Rank")
-                            Text("#\(anime.rank?.formatted() ?? "N/A")")
-                                .bold()
-                        }
-                    }
-                }
-                
             }
-            .padding(16)
+            HStack {
+                HStack(spacing: 12) {
+                    Image(systemName: "trophy.fill")
+                        .foregroundStyle(.orange)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(.orange.gradient.secondary)
+                        )
+                    VStack {
+                        Text("Rank")
+                            .font(.title2)
+                        Text("#\(anime.rank?.formatted() ?? "N/A")")
+                            .font(.title2)
+                            .bold()
+                    }
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(.gray.gradient.quinary)
+                )
+                HStack(spacing: 12) {
+                    Image(systemName: "star.fill")
+                        .foregroundStyle(.yellow)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(.yellow.gradient.secondary)
+                        )
+                    VStack {
+                        Text("Score")
+                            .font(.title2)
+                        Text(anime.score?.formatted() ?? "N/A")
+                            .font(.title2)
+                            .bold()
+                    }
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(.gray.gradient.quinary)
+                )
+            }
+            HStack {
+                HStack(spacing: 12) {
+                    Image(systemName: "heart.fill")
+                        .foregroundStyle(.red)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(.red.gradient.secondary)
+                        )
+                    VStack {
+                        Text("Popularity")
+                            .font(.title2)
+                        Text("#\(anime.popularity?.formatted() ?? "N/A")")
+                            .font(.title2)
+                            .bold()
+                    }
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(.gray.gradient.quinary)
+                )
+                HStack(spacing: 12) {
+                    Image(systemName: "play.tv.fill")
+                        .foregroundStyle(.blue)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(.blue.gradient.secondary)
+                        )
+                    VStack {
+                        Text("Episodes")
+                            .font(.title2)
+                        Text(anime.episodes?.formatted() ?? "N/A")
+                            .font(.title2)
+                            .bold()
+                    }
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(.gray.gradient.quinary)
+                )
+            }
+            
         }
+        
     }
 }
-
 
 extension AnimeData {
     static let sample = AnimeData(
@@ -81,12 +124,11 @@ extension AnimeData {
         rank: 35,
         score: 8.65,
         episodes: 24,
-        popularity: 24,
+        popularity: 115,
         genres: [Genre(malId: 1, name: "Action"), Genre(malId: 10, name: "Fantasy")],
         images: AnimeImage(jpg: Jpg(imageURL: "https://myanimelist.net/images/anime/1171/109222.jpg"))
     )
 }
-
 
 #Preview {
     DetailView(anime: AnimeData.sample)
