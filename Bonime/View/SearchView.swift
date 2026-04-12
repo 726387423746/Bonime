@@ -12,7 +12,7 @@ struct SearchView: View {
                         AnimeCardView(data: data)
                     }
                     .swipeActions(edge: .leading) {
-                        Button {
+                        Button{
                             let _ = favoritesViewModel.saveAnime(animeData: data)
                         } label: {
                             Label("Favorite", systemImage: "star.fill")
